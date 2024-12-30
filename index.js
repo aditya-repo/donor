@@ -7,6 +7,7 @@ const database = require("./config/database")
 // const corsConfig = require("./config/cors")
 const redisServer = require("./config/redis")
 const setupSocket = require("./config/websocket")
+const { searchDonorList } = require("./controllers/receipent")
 require("dotenv").config()
 
 const app = express()
@@ -30,7 +31,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use('/', express.static(path.join(__dirname, 'public')))
 
-
+app.post('/', searchDonorList)
 // Routes
 
 

@@ -1,11 +1,11 @@
 const mongoose = require("mongoose")
 
 const UserSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        unique: true,
-        required: true
-    },
+    // username: {
+    //     type: String,
+    //     unique: true,
+    //     required: true
+    // },
     name: {
         type: String
     },
@@ -17,8 +17,14 @@ const UserSchema = new mongoose.Schema({
     registered: {
         type: String
     },
-    dob: {
-        type: Date
+    age: {
+        type: Number
+    },
+    state: {
+        type:String
+    },
+    district: {
+        type: String
     },
     location: {
         type: String
@@ -30,7 +36,11 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
-    available: { type: Boolean, default: false }
+    visible: {
+        type: Boolean,
+        default: true
+    },
+    available: { type: Boolean, default: false, required: true }
 }, { timestamps: true })
 
 const User = mongoose.model('User', UserSchema)

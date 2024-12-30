@@ -4,15 +4,18 @@ const MedicalSchema = new mongoose.Schema({
     userid: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: true,
+        unique: true
     },
-    bloodType: {
-        type: String
+    bloodGroup: {
+        enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
     },
+    tattoo: {type: Boolean, default: false},
+    bloodType: {type: String},
     diabetic: { type: Boolean },
-    allergies: [{ type: String }],
     alcohol: { type: Boolean },
     tobacco: { type: Boolean },
+    allergies: [{ type: String }],
     diseases: [{ type: String }],
     donated: {
         type: Number,
