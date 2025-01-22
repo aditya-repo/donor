@@ -1,10 +1,11 @@
-const MedicalData = require("../models/medical");
-const Recepient = require("../models/receipent");
-const User = require("../models/users");
-const schemaError = require("../util/joiError");
-const { askBloodDonationSchema } = require("../validator/receipent");
+import { Request, Response } from "express";
+import MedicalData from "../models/medical";
+import Recepient from "../models/receipent"
+import User from "../models/users"
+import schemaError from "../util/joiError"
+import { askBloodDonationSchema } from "../validator/receipent"
 
-const searchDonorList = async (req, res) => {
+const searchDonorList = async (req: Request, res:Response):Promise<Response> => {
     const { query } = req.body
     console.log(req.body);
 
@@ -13,10 +14,10 @@ const searchDonorList = async (req, res) => {
     if (!donorlist) {
         return res.status(404).json(donorlist)
     }
-    res.json(donorlist)
+    return res.json(donorlist)
 }
 
-const requestBlood = async (req, res) => {
+const requestBlood = async (req: Request, res:Response):Promise<Response> => {
 
     const { contactname, contactnumber, patientname, patientcontact, patientage, bloodGroup, bloodType, unitcount, status, requestnote, state, district, city, landmark, hospitalname } = req.body;
 
@@ -31,15 +32,18 @@ const requestBlood = async (req, res) => {
 
     const newBloodRequest = new Recepient(payload)
     newBloodRequest.save()
+
+    return res.json({ message: "Blood Request Submitted", mstatus: 200 }).status(200)
+
 }
 
-const getFormRequest = async (req, res) => {
+const getFormRequest = async (req: Request, res:Response):Promise<Response> => {
     const { formid } = req.params
     const response = await Recepient.findOne({ _id: formid })
-    res.json({ message: response, mstatus: 200 }).status(200)
+    return res.json({ message: response, mstatus: 200 }).status(200)
 }
 
-const updateRequestBlood = async (req, res) => {
+const updateRequestBlood = async (req: Request, res:Response):Promise<Response> => {
 
     const { contactname, contactnumber, patientname, patientcontact, patientage, bloodGroup, bloodType, unitcount, status, requestnote, state, district, city, landmark, hospitalname } = req.body;
     const { formid } = req.params
@@ -58,15 +62,15 @@ const updateRequestBlood = async (req, res) => {
     return res.status(201).json(response)
 }
 
-const deleteRequestForm = async (req, res) => {
+const deleteRequestForm = async (req: Request, res:Response):Promise<Response> => {
     const { formid } = req.params
 
     await Recepient.findOneAndUpdate({ _id: formid }, { active: false })
 
-    res.json({ message: "Form deleted successfully", mstatus: 204 }).status(204)
+    return res.json({ message: "Form deleted successfully", mstatus: 204 }).status(204)
 }
 
-const donorData = async (req, res) => {
+const donorData = async (req: Request, res:Response):Promise<Response> => {
 
     const response = await User.aggregate([
         {
@@ -86,7 +90,7 @@ const donorData = async (req, res) => {
         }
     ])
 
-    res.json(response)
+    return res.json(response)
 }
 
 module.exports = { searchDonorList, requestBlood, updateRequestBlood, deleteRequestForm, getFormRequest, donorData }
