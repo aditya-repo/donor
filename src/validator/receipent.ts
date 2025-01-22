@@ -1,5 +1,7 @@
-const Joi = require("joi")
-const { phoneField, nameField, ageField, bloodGroupField, stateField, districtField, cityField, landmarkField, hospitalnameField, unitcountField } = require(".")
+// const Joi = require("joi")
+import Joi from "joi"
+
+import { phoneField, nameField, ageField, bloodGroupField, stateField, districtField, cityField, landmarkField, hospitalnameField, unitcountField } from "."
 
 const askBloodDonationSchema = Joi.object({
     contactname: nameField,
@@ -16,4 +18,4 @@ const askBloodDonationSchema = Joi.object({
     hospitalname: hospitalnameField
 })
 
-module.exports = {askBloodDonationSchema}
+export {askBloodDonationSchema}

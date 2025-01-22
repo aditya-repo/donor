@@ -1,22 +1,18 @@
-const redisServer = require("../config/redis");
+import redisServer from "../config/redis";
 
 const client = redisServer()
 
-const checkStatus = () => {
+const checkStatus = (): void => {
     try {
-
         if (!client.isReady) {
             console.log("Redis client is not ready yet!");
-            return false
         }
     } catch (error) {
-
         console.log("Error checking Redis client status", error);
-        return false;  // Return false in case of any errors
     }
 }
 
-const setExRedis = async (key, ttl, value) => {
+const setExRedis = async (key: string, ttl: number, value: string): Promise<void> => {
 
     checkStatus()
 
@@ -27,7 +23,7 @@ const setExRedis = async (key, ttl, value) => {
     }
 }
 
-const getRedis = async (key) => {
+const getRedis = async (key:string): Promise<string | null> => {
 
     checkStatus()
 
@@ -36,8 +32,8 @@ const getRedis = async (key) => {
         return value
     } catch (error) {
         console.log("redis getting data error", error);
-
+        return null
     }
 }
 
-module.exports = { setExRedis, getRedis }
+export { setExRedis, getRedis }

@@ -1,7 +1,8 @@
-const redis = require('redis')
-require("dotenv").config()
+import redis from "redis"
+import dotenv from "dotenv"
+dotenv.config()
 
-const REDIS_PORT = process.env.REDIS_PORT
+const REDIS_PORT = process.env.REDIS_PORT as string
 
 const redisServer = () => {
     const client = redis.createClient({
@@ -21,4 +22,4 @@ const redisServer = () => {
     return client
 }
 
-module.exports = redisServer
+export default redisServer

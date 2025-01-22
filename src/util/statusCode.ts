@@ -10,4 +10,4 @@ const MStatus = {
     422: "Semantic/ Validation error"
 }
 
-module.exports = MStatus
+export default MStatus

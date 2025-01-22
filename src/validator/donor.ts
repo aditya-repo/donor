@@ -1,5 +1,16 @@
-const Joi = require("joi");
-const { phoneField, otpField, nameField, dobField, genderField, cityField, bloodGroupField, alcoholField, tobaccoField } = require(".");
+import Joi from "joi";
+import {
+    phoneField,
+    otpField,
+    nameField,
+    ageField as dobField,
+    genderField,
+    cityField,
+    bloodGroupField,
+    alcoholField,
+    tobaccoField,
+    bloodTypeField,
+} from ".";
 
 const sendOtpSchema = Joi.object({
     phone: phoneField,
@@ -24,4 +35,10 @@ const updateMedicalDataSchema = Joi.object({
     tobacco: tobaccoField
 })
 
-module.exports = { sendOtpSchema, verifyOtpSchema, newUserSchema, updateMedicalDataSchema };
+
+export {
+    sendOtpSchema,
+    verifyOtpSchema,
+    newUserSchema,
+    updateMedicalDataSchema,
+}
